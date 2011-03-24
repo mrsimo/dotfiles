@@ -296,14 +296,6 @@ map L $
 "No Help, please
 nmap <F1> <Esc>
 
-"Maps autocomplete to tab
-imap <Tab> <C-N>
-
-"Use Ack instead of Grep when available
-if executable("ack")
-  set grepprg=ack\ -H\ --nogroup\ --nocolor\ --ignore-dir=tmp\ --ignore-dir=coverage
-endif
-
 "Numbers
 set number
 set numberwidth=5
@@ -325,7 +317,7 @@ endfunction
 " -------------------
 
 " Project Tree
-autocmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
+" autocmd VimEnter * call s:CdIfDirectory(expand("<amatch>"))
 
 " Disable netrw's autocmd, since we're ALWAYS using NERDTree
 runtime plugin/netRwPlugin.vim
@@ -358,6 +350,10 @@ autocmd BufWritePre * :%s/\s\+$//e
 
 " New filetypes
 autocmd BufNewFile,BufRead *.thor setf ruby
+
+" Mark as red every character after 80
+" :au BufWinEnter * let w:m1=matchadd('Search', '\\%<81v.\\%>77v', -1)
+:au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 
 " Local config
 " if filereadable("~/.vimrclocal")
