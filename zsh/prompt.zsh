@@ -7,30 +7,29 @@ git_branch() {
   echo $(git symbolic-ref HEAD 2>/dev/null | awk -F/ {'print $NF'})
 }
 
+# git_dirty() {
+#   st=$(git status 2>/dev/null | tail -n 1)
+#   if [[ $st == "" ]]
+#   then
+#     echo ""
+#   else
+#     if [[ $st == "nothing to commit (working directory clean)" ]]
+#     then
+#       echo "$(git_prompt_info) "
+#     else
+#       echo "$(git_prompt_info)+ "
+#     fi
+#   fi
+# }
+
 git_dirty() {
-  st=$(git status 2>/dev/null | tail -n 1)
-  if [[ $st == "" ]]
-  then
-    echo ""
-  else
-    if [[ $st == "nothing to commit (working directory clean)" ]]
-    then
-      echo "$(git_prompt_info) "
-    else
-      echo "$(git_prompt_info)+ "
-    fi
-  fi
+  echo "$(git_prompt_info) "
 }
 
 git_prompt_info () {
  ref=$(git symbolic-ref HEAD 2>/dev/null) || return
 # echo "(%{\e[0;33m%}${ref#refs/heads/}%{\e[0m%})"
  echo "${ref#refs/heads/}"
-}
-
-project_name () {
-  name=$(pwd | awk -F'code/' '{print $2}' | awk -F/ '{print $1}')
-  echo $name
 }
 
 project_name_color () {
