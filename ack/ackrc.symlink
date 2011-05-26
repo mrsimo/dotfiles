@@ -1,5 +1,6 @@
 --type-add=ruby=.haml,.rake,.rsel
 --type-add=html=.html,.php
+--type-add=css=.sass
 --ignore-dir=tmp
 --ignore-dir=log
 --ignore-dir=coverage
