@@ -3,7 +3,7 @@ set fuoptions=maxhorz,maxvert
 
 " Start without the toolbar
 set guioptions-=T
-set gfn=Menlo:h13
+set gfn=Menlo:h12
 
 "colorscheme & font
 colors molokai
