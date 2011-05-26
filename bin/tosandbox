@@ -1,0 +1,15 @@
+#!/usr/bin/env ruby
+
+sandbox = ARGV.first || "main"
+remote_dir = "albert.llop@dev2:sandbox/#{sandbox}/rails"
+
+excludes = File.read(".gitignore").split("\n")
+excludes << ".git*"
+excludes.map!{|item| item.gsub(/^\//,'')}
+excludes.map!{|item| "--exclude=#{item}"}
+
+command = "rsync -v -zar -p -C --delete #{excludes.join(" ")} -e 'ssh -p 22' . '#{remote_dir}'"
+
+puts "Synchronizing #{Dir.getwd} with #{remote_dir}"
+
+system command
