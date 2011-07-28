@@ -34,7 +34,7 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
   }
 
   rvm_prompt(){
-    rvp=$(~/.rvm/bin/rvm-prompt) || return
+    rvp=$($BASHDIR/bin/rvm-prompt) || return
     echo "${rvp} ";
   }
 
