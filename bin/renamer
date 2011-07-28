@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+require 'fileutils'
+
+print "What files to rename? "
+from = gets.chomp
+
+files = Dir[from]
+puts "Will rename #{files.size} files"
+
+print "Change extension to? "
+ext = gets.chomp
+
+puts "Renaming #{files.size} files to .#{ext}"
+puts
+
+files.each do |file|
+  name = file.gsub(/\.\S+$/, ".#{ext}")
+  FileUtils.mv(file, name)
+  print "."
+end
+
+puts
