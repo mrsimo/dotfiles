@@ -50,6 +50,10 @@ function! StatuslineCurrentHighlight()
     endif
 endfunction
 
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_quiet_warnings=1
+
 set statusline=%f       "tail of the filename
 
 "display a warning if fileformat isnt unix
@@ -60,6 +64,10 @@ set statusline+=%*
 "display a warning if file encoding isnt utf-8
 set statusline+=%#warningmsg#
 set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
+set statusline+=%*
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 set statusline+=%h      "help file flag
@@ -80,7 +88,7 @@ set statusline+=%{&paste?'[paste]':''}
 set statusline+=%*
 
 set statusline+=%=      "left/right separator
-" set statusline+=%{StatuslineCurrentHighlight()}\\ \\ "current highlight
+set statusline+=%{StatuslineCurrentHighlight()} "current highlight
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
@@ -216,6 +224,9 @@ filetype indent on
 
 "turn on syntax highlighting
 syntax on
+
+set ofu=syntaxcomplete#Complete
+let g:acp_behaviorKeywordLength = 4
 
 "some stuff to get the mouse going in term
 set mouse=a
@@ -356,7 +367,7 @@ autocmd BufNewFile,BufRead *.thor setf ruby
 
 " Mark as red every character after 80
 " :au BufWinEnter * let w:m1=matchadd('Search', '\\%<81v.\\%>77v', -1)
-:au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+" :au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\\%>80v.\\+', -1)
 
 " Local config
 " if filereadable("~/.vimrclocal")
