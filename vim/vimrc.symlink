@@ -182,7 +182,7 @@ map <Leader>sv :RSview
 map <Leader>su :RSunittest
 map <Leader>sf :RSfunctionaltest
 
-map <Leader>l <D-Up>i# -*- encoding: utf-8 -*-<CR><Esc>
+map <Leader>e <D-Up>i# -*- encoding: utf-8 -*-<CR><Esc>
 
 " -------------------------
 " MAPPINGS
