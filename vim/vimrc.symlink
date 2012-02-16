@@ -138,8 +138,13 @@ map <s-D-Right> <C-w><Right>
 map <s-D-Up> <C-w><Up>
 map <s-D-Down> <C-w><Down>
 
-map <D-H> <C-W>H<CR>
-map <D-V> <C-W>K<CR>
+map <leader>a <C-w><Left>
+map <leader>d <C-w><Right>
+map <leader>w <C-w><Up>
+map <leader>s <C-w><Down>
+
+map <D-H> <C-w><Right><C-W>H<CR>
+map <D-V> <C-w><Down><C-W>K<CR>
 
 map <D-C> :vsplit<CR>
 map <D-R> :split<CR>
@@ -166,23 +171,21 @@ map <D-9> :tabn 9<CR>
 
 " Leader shortcuts for Rails commands
 " Props to @malditogeek
-map <Leader>m :Rmodel
-map <Leader>c :Rcontroller
-map <Leader>v :Rview
-map <Leader>u :Runittest
-map <Leader>f :Rfunctionaltest
-map <Leader>tm :RTmodel
-map <Leader>tc :RTcontroller
-map <Leader>tv :RTview
-map <Leader>tu :RTunittest
-map <Leader>tf :RTfunctionaltest
-map <Leader>sm :RSmodel
-map <Leader>sc :RScontroller
-map <Leader>sv :RSview
-map <Leader>su :RSunittest
-map <Leader>sf :RSfunctionaltest
-
-map <Leader>e <D-Up>i# -*- encoding: utf-8 -*-<CR><Esc>
+" map <Leader>m :Rmodel
+" map <Leader>c :Rcontroller
+" map <Leader>v :Rview
+" map <Leader>u :Runittest
+" map <Leader>f :Rfunctionaltest
+" map <Leader>tm :RTmodel
+" map <Leader>tc :RTcontroller
+" map <Leader>tv :RTview
+" map <Leader>tu :RTunittest
+" map <Leader>tf :RTfunctionaltest
+" map <Leader>sm :RSmodel
+" map <Leader>sc :RScontroller
+" map <Leader>sv :RSview
+" map <Leader>su :RSunittest
+" map <Leader>sf :RSfunctionaltest
 
 " -------------------------
 " MAPPINGS
@@ -257,18 +260,21 @@ inoremap <D-CR> <ESC>o
 nnoremap <c-t> :NERDTreeToggle<CR>
 
 "map to bufexplorer
-nnoremap <C-B> :BufExplorer<cr>
+nnoremap <leader>b :BufExplorer<cr>
 
 "map to fuzzy finder text mate stylez
-nnoremap <c-f> :CommandTFlush<CR>:CommandT<CR>
-set wildignore+=gems/**,coverage,tmp
+set wildignore+=gems/**,coverage,tmp,*/.git/*,*/.hg/*,*/.svn/*,.DS_Store
+" nnoremap <leader>f :CommandTFlush<CR>:CommandT<CR>
+  nnoremap <leader>f :ClearCtrlPCache<CR>:CtrlP<cr>
+let g:ctrlp_working_path_mode = 0
+
+
+"reload vim config
+nnoremap <D-e> :so $MYVIMRC<cr>
+nnoremap <D-E> :so $MYGVIMRC<cr>
 
 "comment lines as with textmate
-nmap <D-D> :TComment<cr>
-vmap <D-D> :TComment<cr>
-
-"map Q to something useful
-noremap Q gq
+nmap <s-D-d> :TComment<cr>
 
 "make Y consistent with C and D
 nnoremap Y y$

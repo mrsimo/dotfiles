@@ -8,8 +8,6 @@ set gfn=Menlo:h12
 "colorscheme & font
 colors molokai
 
-" set relativenumber
-
 "positioned
 winpos 0 0
 set anti " antialiasing
