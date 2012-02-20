@@ -274,7 +274,10 @@ nnoremap <D-e> :so $MYVIMRC<cr>
 nnoremap <D-E> :so $MYGVIMRC<cr>
 
 "comment lines as with textmate
-nmap <s-D-d> :TComment<cr>
+map <leader>g :TComment<cr>
+imap <leader>g :TComment<cr>
+vmap <leader>g :TComment<cr>
+
 
 "make Y consistent with C and D
 nnoremap Y y$

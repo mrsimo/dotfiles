@@ -24,6 +24,8 @@ for file in `ls $BASHDIR/**/*.bash` ; do
   . $file
 done
 
+set -o vi
+
 if [ -f ~/.localrc ]; then
   . ~/.localrc
 fi
