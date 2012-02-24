@@ -169,6 +169,9 @@ map <D-7> :tabn 7<CR>
 map <D-8> :tabn 8<CR>
 map <D-9> :tabn 9<CR>
 
+map <leader>q :q<CR>
+imap <leader>q :q<CR>
+
 " Leader shortcuts for Rails commands
 " Props to @malditogeek
 " map <Leader>m :Rmodel
@@ -278,6 +281,10 @@ map <leader>g :TComment<cr>
 imap <leader>g :TComment<cr>
 vmap <leader>g :TComment<cr>
 
+"display yankring
+map <leader>p :YRShow<cr>
+imap <leader>p :YRShow<cr>
+vmap <leader>p :YRShow<cr>
 
 "make Y consistent with C and D
 nnoremap Y y$
