@@ -80,6 +80,7 @@ export COMP_WORDBREAKS=${COMP_WORDBREAKS/\:/}
 
 test -n "$INTERACTIVE" -a -n "$LOGIN" && {
     uptime
-    fortune | cowsay
+    files=(/usr/local/share/cows/*)
+    fortune | cowsay -f ${files[RANDOM % ${#files[@]}]}
     echo ""
 }
