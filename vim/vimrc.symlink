@@ -252,9 +252,8 @@ if !has("gui")
     let g:CSApprox_loaded = 1
 endif
 
-"make <c-l> clear the highlight as well as redraw
-nnoremap <C-L> :nohls<CR><C-L>
-inoremap <C-L> <C-O>:nohls<CR>
+"clear the highlight as well as redraw
+nnoremap <leader>/ :nohls<CR><C-L>
 
 "make <D-intro> jump add new line as in Textmate
 inoremap <D-CR> <ESC>o
@@ -267,8 +266,9 @@ nnoremap <leader>b :BufExplorer<cr>
 
 "map to fuzzy finder text mate stylez
 set wildignore+=gems/**,coverage,tmp,*/.git/*,*/.hg/*,*/.svn/*,.DS_Store
-" nnoremap <leader>f :CommandTFlush<CR>:CommandT<CR>
-  nnoremap <leader>f :ClearCtrlPCache<CR>:CtrlP<cr>
+nnoremap <leader>r :ClearCtrlPCache<CR>:CtrlP<cr>
+nnoremap <leader>f :CtrlP<cr>
+
 let g:ctrlp_working_path_mode = 0
 
 
@@ -285,6 +285,10 @@ vmap <leader>g :TComment<cr>
 map <leader>p :YRShow<cr>
 imap <leader>p :YRShow<cr>
 vmap <leader>p :YRShow<cr>
+
+"go back to last file
+map <leader><leader> <C-^>
+
 
 "make Y consistent with C and D
 nnoremap Y y$
@@ -315,6 +319,9 @@ vmap D y'>p
 "one-key indentation
 nmap > >>
 nmap < <<
+
+vnoremap < <gv
+vnoremap > >gv
 
 "Easier beginning/end of line
 map H ^
@@ -378,6 +385,8 @@ function s:UpdateNERDTree(stay)
 endfunction
 
 autocmd BufWritePre * :%s/\s\+$//e
+
+au BufWritePost .vimrc so ~/.vimrc
 
 " New filetypes
 autocmd BufNewFile,BufRead *.thor setf ruby
