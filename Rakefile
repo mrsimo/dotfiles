@@ -1,12 +1,7 @@
-# Bundler magic
-require 'rubygems'
-require 'bundler'
-Bundler.setup
-
 require 'fileutils'
 
 desc "Install everything into the system"
-task :install => [:symlinks, :executables]
+task :default => :symlinks
 
 desc "Only symlink files"
 task :symlinks do
@@ -38,15 +33,5 @@ task :symlinks do
       `mv "$HOME/.#{file}" "$HOME/.#{file}.backup"` if backup || backup_all
     end
     `ln -s "$PWD/#{linkable}" "#{target}"`
-  end
-end
-
-
-desc "Execute executable files"
-task :executables do
-  runables = Dir.glob('*/**{.rb}')
-
-  runables.each do |runable|
-    load runable
   end
 end
