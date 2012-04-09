@@ -1,4 +1,6 @@
 alias be='bundle exec'
+alias fr='foreman run'
+alias fre='foreman run bundle exec'
 alias awesome="TESTOPTS='--runner=awesome'"
 alias solr="rake solr:start"
 alias tenv="RAILS_ENV=test"
