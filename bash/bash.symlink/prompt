@@ -69,7 +69,7 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 export PS1="${PURPLE}\$(rvm_prompt)${BGREEN}\$(git_prompt_info)${BBLUE}[${NORMAL}\w${BBLUE}] ${CYAN}\$(is_the_xing_on)${BBLUE}$ ${NORMAL}"
 
 # Window title
-export PROMPT_COMMAND='history -n; history -a; echo -ne "\033]0; ${PWD/#$HOME/~}\007"'
+export PROMPT_COMMAND='echo -ne "\033]0; ${PWD/#$HOME/~}\007"'
 
 export TERM="xterm-color"
 export COMP_WORDBREAKS=${COMP_WORDBREAKS/\:/}
