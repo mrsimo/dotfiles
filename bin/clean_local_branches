@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+branches = `git branch`.chomp.split("\n")
+branches.map!(&:strip)
+
+branches.each do |branch|
+  puts "================================"
+  puts "Considering: #{branch}"
+  puts
+
+  system "git log --color --stat -n 1 #{branch}"
+
+  puts
+  puts
+  puts
+
+  puts "Want to delete it? (y/n)"
+
+  case $stdin.gets.chomp.downcase
+  when "y"
+    system "git branch -D #{branch}"
+  end
+
+  puts
+  puts
+  puts
+
+end
