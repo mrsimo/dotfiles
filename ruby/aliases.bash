@@ -1,4 +1,5 @@
 alias be='bundle exec'
+alias bo='EDITOR=mvim bundle open'
 alias fr='foreman run'
 alias fre='foreman run bundle exec'
 alias awesome="TESTOPTS='--runner=awesome'"
