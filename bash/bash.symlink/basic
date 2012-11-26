@@ -54,13 +54,6 @@ case "$0" in
     *)  unset LOGIN ;;
 esac
 
-# enable en_US locale w/ utf-8 encodings if not already configured
-: ${LANG:="es_ES.UTF-8"}
-: ${LANGUAGE:="es"}
-: ${LC_CTYPE:="es_ES.UTF-8"}
-: ${LC_ALL:="es_ES.UTF-8"}
-export LANG LANGUAGE LC_CTYPE LC_ALL
-
 # ignore backups, CVS directories, python bytecode, vim swap files
 FIGNORE="~:CVS:#:.pyc:.swp:.swa:apache-solr-*"
 HISTCONTROL=ignoreboth
