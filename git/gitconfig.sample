@@ -7,24 +7,51 @@
 # can symlink ~/.gitconfig to this file and go rock out with your git out!
 
 [user]
-        name = Zach Holman
-        email = your@example.com
-[alias]
-        co = checkout
-        promote = !$ZSH/bin/git-promote
-        wtf     = !$ZSH/bin/git-wtf
-        rank-contributers = !$ZSH/bin/git-rank-contributers
-        count   = !git shortlog -sn
+        name = Albert Llop
+        email = mrsimo@gmail.com
 [color]
         diff = auto
         status = auto
         branch = auto
+        interactive = auto
+[push]
+        default = tracking
 [core]
         excludesfile = ~/.gitignore
-        editor = mate -w
+        editor = /usr/bin/vim
+        autocrlf = input
+        safecrlf = true
+[alias]
+        co              = checkout
+        promote = !git-promote
+        wtf     = !git-wtf
+        rank-contributers = !$BASHDIR/bin/git-rank-contributers
+        count   = !git shortlog -sn
+        dw = diff --word-diff
+        lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+        unstage = reset HEAD
+        conflicts = !git ls-files --unmerged | cut -c51- | sort -u | xargs $EDITOR
+        resolve = !git ls-files --unmerged | cut -c51- | sort -u | xargs git add
+        pending = !git --no-pager log origin/master..master && echo
+        db = !sh -c 'git branch -D "$0" && git push origin ":$0"' &> /dev/null
+        missing = !sh -c 'git cherry "$0" | cut -sd + -f 2 | xargs "git show"'
+        lc = log ORIG_HEAD.. --stat --no-merges
+        pr = pull --rebase
+        update = !gx-update
+        publish = !legit publish \"$@\"
+        switch = !legit switch \"$@\"
+        branches = !legit branches
+        sprout = !legit sprout \"$@\"
+        unpublish = !legit unpublish \"$@\"
+        harvest = !legit harvest \"$@\"
+        sync = !legit sync \"$@\"
+        graft = !legit graft \"$@\"
+[mirror]
+        summary = true
 [apply]
         whitespace = nowarn
 [github]
-        user = holman
-[mergetool]
-        keepBackup = false
+        user = mrsimo
+[branch]
+        autosetupmerge = true
+        autosetuprebase = always
