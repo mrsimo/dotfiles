@@ -34,8 +34,16 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
   }
 
   rvm_prompt(){
-    rvp=$($BASHDIR/bin/rvm-prompt) || return
-    echo "${rvp} ";
+    if which rvm > /dev/null
+    then
+      bvp=$(rvm-prompt) || return
+      echo "${rvp} ";
+      echo "";
+    else
+      rvp=$(rbenv version-name) || return
+      echo "${rvp} ";
+      echo "";
+    fi
   }
 
   git_dirty() {

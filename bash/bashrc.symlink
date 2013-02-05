@@ -28,6 +28,8 @@ if [ -f ~/.localrc ]; then
   . ~/.localrc
 fi
 
-PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+# Hopefully compatible with rvm or rbenv
+if which rvm > /dev/null; then PATH=$PATH:$HOME/.rvm/bin; fi
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 [ -s "/Users/albert.llop/.scm_breeze/scm_breeze.sh" ] && source "/Users/albert.llop/.scm_breeze/scm_breeze.sh"
