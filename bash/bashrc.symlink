@@ -33,3 +33,7 @@ if which rvm > /dev/null; then PATH=$PATH:$HOME/.rvm/bin; fi
 if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
 
 [ -s "/Users/albert.llop/.scm_breeze/scm_breeze.sh" ] && source "/Users/albert.llop/.scm_breeze/scm_breeze.sh"
+[ -s "/Users/mrsimo/.scm_breeze/scm_breeze.sh" ] && source "/Users/mrsimo/.scm_breeze/scm_breeze.sh"
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
