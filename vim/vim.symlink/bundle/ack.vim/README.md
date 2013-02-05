@@ -1,51 +1,51 @@
 # ack.vim #
 
-This plugin allows you to run ack from vim, shows the search results in a
-split window and enables an easy navigation to the location of the search item
-in original files.
+This plugin is a front for the Perl module
+[App::Ack](http://search.cpan.org/~petdance/ack/ack).  Ack can be used as a
+replacement for 99% of the uses of _grep_.  This plugin will allow you to run
+ack from vim, and shows the results in a split window.
 
-Ack is a powerful search tool for programmers, much better than grep:
-
-* ack is blazingly fast
-* ack ignores crap you do not want to search like .svn, backup files
-* lets you specify file types to search
-
-See [Ack homepage](http://betterthangrep.com/) for **Top 10 reasons to use ack
-instead of grep.**
-
-There is also an official home of the 
-[App::Ack](http://search.cpan.org/~petdance/ack/ack) Perl module.
-
-The [original version](http://www.vim.org/scripts/script.php?script_id=2572)
-of this ack.vim plugin is available at vim.org.
-
-Version your are currently looking at is refactored and extended by geekQ.
-
+The *Official Version* of this plugin is available at [vim.org](http://www.vim.org/scripts/script.php?script_id=2572).
 
 ## Installation ##
 
+
 ### Ack
 
-You have to install [ack](http://search.cpan.org/~petdance/ack/ack), of course.
+You have to install [ack](http://betterthangrep.com/), of course.
 
-Install on Ubuntu with:
+Install on Debian / Ubuntu with:
 
     sudo apt-get install ack-grep
 
+Install on Fedora with:
+
+    su -l -c 'yum install ack'
 Install on Gentoo with:
 
     sudo emerge ack
+
+Install with Homebrew:
+
+    brew install ack
 
 Install with MacPorts:
 
     sudo port install p5-app-ack
 
-Install with Gentoo Prefix
+Install with Gentoo Prefix:
 
     emerge ack
 
-Otherwise, you are on your own.
+Install on FreeBSD with:
 
+    cd /usr/ports/textproc/p5-ack/ && make install clean
+
+You can specify a custom ack name and path in your .vimrc like so:
+
+    let g:ackprg="<custom-ack-path-goes-here> -H --nocolor --nogroup --column"
+
+Otherwise, you are on your own.
 
 ### The Plugin
 
@@ -58,18 +58,52 @@ Otherwise, the file ack.vim goes in ~/.vim/plugin, and the ack.txt file belongs 
 afterwards.
 
 
-## Usage 
+## Usage ##
 
-For detailed usage information type `:help ack` in vim or read the 
-[help online](http://github.com/geekq/ack.vim/tree/master/doc/ack.txt).
+    :Ack [options] {pattern} [{directory}]
 
-## Authors
+Search recursively in {directory} (which defaults to the current directory) for the {pattern}.
 
-This Vim plugin is derived from Antoine Imbert's blog post [Ack and Vim
-Integration](http://blog.ant0ine.com/typepad/2007/03/ack-and-vim-integration.html).
+Files containing the search term will be listed in the split window, along with
+the line number of the occurrence, once for each occurrence.  [Enter] on a line
+in this window will open the file, and place the cursor on the matching line.
 
-[Miles Z. Sterrett](http://mileszs.com/) created the first version of the
-plugin and added a help file.
+Just like where you use :grep, :grepadd, :lgrep, and :lgrepadd, you can use `:Ack`, `:AckAdd`, `:LAck`, and `:LAckAdd` respectively. (See `doc/ack.txt`, or install and `:h Ack` for more information.)
 
-Version your are currently looking at is refactored and extended by 
-[Vladimir Dobriakov](http://blog.geekQ.net).
+**From the [ack docs](http://betterthangrep.com/)** (my favorite feature):
+
+    --type=TYPE, --type=noTYPE
+
+        Specify the types of files to include or exclude from a search. TYPE is a filetype, like perl or xml. --type=perl can also be specified as --perl, and --type=noperl can be done as --noperl.
+
+        If a file is of both type "foo" and "bar", specifying --foo and --nobar will exclude the file, because an exclusion takes precedence over an inclusion.
+
+        Type specifications can be repeated and are ORed together.
+
+        See ack --help=types for a list of valid types.
+
+### Gotchas ###
+
+Some characters have special meaning, and need to be escaped your search pattern. For instance, '#'. You have to escape it like this `:Ack '\\\#define foo'` to search for `#define foo`. (From [blueyed in issue #5](https://github.com/mileszs/ack.vim/issues/5).)
+
+### Keyboard Shortcuts ###
+
+In the quickfix window, you can use:
+
+    o    to open (same as enter)
+    go   to preview file (open but maintain focus on ack.vim results)
+    t    to open in new tab
+    T    to open in new tab silently
+    h    to open in horizontal split
+    H    to open in horizontal split silently
+    v    to open in vertical split
+    gv   to open in vertical split silently
+    q    to close the quickfix window
+
+This Vim plugin is derived (and by derived, I mean copied, essentially) from
+Antoine Imbert's blog post [Ack and Vim
+Integration](http://blog.ant0ine.com/typepad/2007/03/ack-and-vim-integration.html) (in
+particular, the function at the bottom of the post).  I added a help file that
+provides just enough reference to get you going.  I also highly recommend you
+check out the docs for the Perl script 'ack', for obvious reasons: [ack -
+grep-like text finder](http://betterthangrep.com/).

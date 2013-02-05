@@ -5,10 +5,50 @@
 " Must be called first
 filetype off
 
-call pathogen#runtime_append_all_bundles()
-
 "This must be first, because it changes other options as a side effect.
 set nocompatible
+
+" Vundle
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Mandatory
+Bundle 'gmarik/vundle'
+
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'Townk/vim-autoclose'
+Bundle 'bufexplorer.zip'
+
+Bundle 'kien/ctrlp.vim'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'scrooloose/syntastic'
+Bundle 'godlygeek/tabular'
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-repeat'
+Bundle 'tpope/vim-surround'
+Bundle 'tomtom/tcomment_vim'
+
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-rails'
+Bundle 'janx/vim-rubytest'
+
+Bundle 'tpope/vim-cucumber'
+Bundle 'tpope/vim-haml'
+Bundle 'kchmck/vim-coffee-script'
+Bundle 'pangloss/vim-javascript'
+Bundle 'plasticboy/vim-markdown'
+
+Bundle 'msanders/snipmate.vim'
+
+Bundle 'Lokaltog/vim-powerline'
+Bundle 'majutsushi/tagbar'
+Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
+Bundle 'The-NERD-tree'
+Bundle 'mileszs/ack.vim'
+
+filetype plugin indent on
+
+call pathogen#runtime_append_all_bundles()
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -53,6 +93,8 @@ endfunction
 let g:syntastic_enable_signs=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_quiet_warnings=1
+
+let g:ackprg = 'ag --nogroup --nocolor --column'
 
 set statusline=%f       "tail of the filename
 
