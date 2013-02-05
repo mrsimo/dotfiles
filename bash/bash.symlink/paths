@@ -2,4 +2,4 @@
 export PATH=".:/usr/local/bin:/usr/local/sbin:/usr/local/mysql/bin:$HOME/bin:$BASHDIR/bin:$BASHDIR/work-scripts:/Applications/Postgres.app/Contents/MacOS/bin:$PATH"
 export MANPATH="/usr/local/man:/usr/local/mysql/man:/usr/local/git/man:$MANPATH"
 export NODE_PATH="/usr/local/lib/node"
-export CC="/usr/bin/gcc-4.2"
+export CC="`which gcc-4.2`"
