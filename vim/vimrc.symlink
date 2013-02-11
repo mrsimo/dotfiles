@@ -15,7 +15,8 @@ call vundle#rc()
 " Mandatory
 Bundle 'gmarik/vundle'
 
-Bundle 'Valloric/YouCompleteMe'
+Bundle 'AutoComplPop'
+
 Bundle 'Townk/vim-autoclose'
 Bundle 'bufexplorer.zip'
 
