@@ -9,43 +9,48 @@
 "             See http://sam.zoy.org/wtfpl/COPYING for more details.
 "
 "============================================================================
+"
+" Note: this script requires CoffeeScript version 1.6.2 or newer.
+"
 
-
-if !exists('g:syntastic_coffee_lint_options')
-    let g:syntastic_coffee_lint_options = ""
+if exists("g:loaded_syntastic_coffee_coffee_checker")
+    finish
 endif
+let g:loaded_syntastic_coffee_coffee_checker = 1
 
+let s:save_cpo = &cpo
+set cpo&vim
 
-function! SyntaxCheckers_coffee_coffee_IsAvailable()
-    return executable("coffee") && executable('coffeelint')
+function! SyntaxCheckers_coffee_coffee_IsAvailable() dict
+    return executable(self.getExec()) &&
+        \ syntastic#util#versionIsAtLeast(syntastic#util#getVersion(
+        \       self.getExecEscaped() . ' --version 2>' . syntastic#util#DevNull()), [1,6,2])
 endfunction
 
-function! SyntaxCheckers_coffee_coffee_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'coffee',
-                \ 'args': '-c -l -o /tmp' })
-    let errorformat =  'Syntax%trror: In %f\, %m on line %l,%EError: In %f\, Parse error on line %l: %m,%EError: In %f\, %m on line %l,%W%f(%l): lint warning: %m,%-Z%p^,%W%f(%l): warning: %m,%-Z%p^,%E%f(%l): SyntaxError: %m,%-Z%p^,%-G%.%#'
+function! SyntaxCheckers_coffee_coffee_GetLocList() dict
+    let makeprg = self.makeprgBuild({ 'args_after': '-cp' })
 
-    let coffee_results = SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
+    let errorformat =
+        \ '%E%f:%l:%c: %trror: %m,' .
+        \ 'Syntax%trror: In %f\, %m on line %l,' .
+        \ '%EError: In %f\, Parse error on line %l: %m,' .
+        \ '%EError: In %f\, %m on line %l,' .
+        \ '%W%f(%l): lint warning: %m,' .
+        \ '%W%f(%l): warning: %m,' .
+        \ '%E%f(%l): SyntaxError: %m,' .
+        \ '%-Z%p^,' .
+        \ '%-G%.%#'
 
-    if !empty(coffee_results)
-        return coffee_results
-    endif
-
-    if executable("coffeelint")
-        return s:GetCoffeeLintErrors()
-    endif
-
-    return []
-endfunction
-
-function s:GetCoffeeLintErrors()
-    let coffeelint = 'coffeelint --csv '.g:syntastic_coffee_lint_options.' '.shellescape(expand('%'))
-    let lint_results = SyntasticMake({ 'makeprg': coffeelint, 'errorformat': '%f\,%l\,%trror\,%m', 'subtype': 'Style' })
-
-    return lint_results
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'coffee',
     \ 'name': 'coffee'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set et sts=4 sw=4:

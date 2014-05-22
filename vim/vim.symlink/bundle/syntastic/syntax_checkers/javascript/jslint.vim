@@ -10,30 +10,42 @@
 "
 "Tested with jslint 0.1.4.
 "============================================================================
-if !exists("g:syntastic_javascript_jslint_conf")
-    let g:syntastic_javascript_jslint_conf = "--white --undef --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars"
+if exists("g:loaded_syntastic_javascript_jslint_checker")
+    finish
 endif
 
-function! SyntaxCheckers_javascript_jslint_IsAvailable()
-    return executable('jslint')
+let g:loaded_syntastic_javascript_jslint_checker = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+function! SyntaxCheckers_javascript_jslint_GetHighlightRegex(item)
+    let term = matchstr(a:item['text'], '\mExpected .* and instead saw ''\zs.*\ze''')
+    if term != ''
+        let term = '\V' . escape(term, '\')
+    endif
+    return term
 endfunction
 
-function! SyntaxCheckers_javascript_jslint_HighlightTerm(error)
-    let unexpected = matchstr(a:error['text'], 'Expected.*and instead saw \'\zs.*\ze\'')
-    if len(unexpected) < 1 | return '' | end
-    return '\V'.split(unexpected, "'")[1]
-endfunction
+function! SyntaxCheckers_javascript_jslint_GetLocList() dict
+    let makeprg = self.makeprgBuild({ 'args': '--white --nomen --regexp --plusplus --bitwise --newcap --sloppy --vars' })
 
-function! SyntaxCheckers_javascript_jslint_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'jslint',
-                \ 'args': g:syntastic_javascript_jslint_conf,
-                \ 'subchecker': 'jslint' })
-    let errorformat='%E %##%n %m,%-Z%.%#Line %l\, Pos %c,%-G%.%#'
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat, 'defaults': {'bufnr': bufnr("")} })
+    let errorformat =
+        \ '%E %##%\d%\+ %m,'.
+        \ '%-Z%.%#Line %l\, Pos %c,'.
+        \ '%-G%.%#'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat,
+        \ 'defaults': {'bufnr': bufnr("")} })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'javascript',
     \ 'name': 'jslint'})
 
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set et sts=4 sw=4:

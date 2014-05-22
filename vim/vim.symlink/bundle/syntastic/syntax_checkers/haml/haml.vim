@@ -10,18 +10,41 @@
 "
 "============================================================================
 
-function! SyntaxCheckers_haml_haml_IsAvailable()
-    return executable('haml')
+if exists('g:loaded_syntastic_haml_haml_checker')
+    finish
+endif
+let g:loaded_syntastic_haml_haml_checker = 1
+
+let s:save_cpo = &cpo
+set cpo&vim
+
+function! SyntaxCheckers_haml_haml_IsAvailable() dict
+    if !exists('g:syntastic_haml_interpreter')
+        let g:syntastic_haml_interpreter = self.getExec()
+    endif
+    return executable(expand(g:syntastic_haml_interpreter))
 endfunction
 
-function! SyntaxCheckers_haml_haml_GetLocList()
-    let makeprg = syntastic#makeprg#build({
-                \ 'exe': 'haml',
-                \ 'args': '-c' })
-    let errorformat = 'Haml error on line %l: %m,Syntax error on line %l: %m,%-G%.%#'
-    return SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
+function! SyntaxCheckers_haml_haml_GetLocList() dict
+    let makeprg = self.makeprgBuild({
+        \ 'exe': syntastic#util#shexpand(g:syntastic_haml_interpreter),
+        \ 'args_after': '-c' })
+
+    let errorformat =
+        \ 'Haml error on line %l: %m,' .
+        \ 'Syntax error on line %l: %m,' .
+        \ '%-G%.%#'
+
+    return SyntasticMake({
+        \ 'makeprg': makeprg,
+        \ 'errorformat': errorformat })
 endfunction
 
 call g:SyntasticRegistry.CreateAndRegisterChecker({
     \ 'filetype': 'haml',
     \ 'name': 'haml'})
+
+let &cpo = s:save_cpo
+unlet s:save_cpo
+
+" vim: set et sts=4 sw=4:
