@@ -15,7 +15,9 @@ call vundle#rc()
 " Mandatory
 Bundle 'gmarik/vundle'
 
-Bundle 'AutoComplPop'
+Bundle 'molokai'
+
+" Bundle 'esukram/autocomplpop.vim'
 
 Bundle 'Townk/vim-autoclose'
 Bundle 'bufexplorer.zip'
@@ -30,10 +32,9 @@ Bundle 'tpope/vim-surround'
 Bundle 'tomtom/tcomment_vim'
 
 Bundle 'tpope/vim-fugitive'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'tpope/vim-rails'
-Bundle 'janx/vim-rubytest'
 
-Bundle 'tpope/vim-cucumber'
 Bundle 'tpope/vim-haml'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'pangloss/vim-javascript'
@@ -41,7 +42,9 @@ Bundle 'plasticboy/vim-markdown'
 
 Bundle 'msanders/snipmate.vim'
 
-Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/vim-powerline'
+Bundle 'bling/vim-airline'
+
 Bundle 'majutsushi/tagbar'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'The-NERD-tree'
