@@ -25,8 +25,8 @@ if has("gui_macvim")
   " Full screen mode
 endif
 
-autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
+autocmd VimEnter * NERDTree
 
 " Load local config
 " if filereadable(".gvimrclocal")
