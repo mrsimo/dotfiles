@@ -1,8 +1,11 @@
 --type-add=ruby=.haml,.rake,.rsel
 --type-add=html=.html,.php
---type-add=css=.sass
+--type-add=css=.sass,.scss
 --ignore-dir=tmp
 --ignore-dir=log
 --ignore-dir=coverage
 --ignore-dir=plots
 --ignore-dir=doc
+--ignore-dir=ctags
+--type-set=DUMB=.db,ctags,.sql
+--noDUMB
