@@ -8,3 +8,5 @@
 *.rbc
 .yardoc
 Guardfile
+.minitest-perf.db
+ctags
