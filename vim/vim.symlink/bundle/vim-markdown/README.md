@@ -6,12 +6,15 @@ Syntax highlighting, matching rules and mappings for [the original Markdown](htt
 
 If you use [Vundle](https://github.com/gmarik/vundle), add the following line to your `~/.vimrc`:
 
-    Bundle 'plasticboy/vim-markdown'
+    Plugin 'godlygeek/tabular'
+    Plugin 'plasticboy/vim-markdown'
 
-And then run inside Vim:
+The `tabular` plugin come *before* `vim-markdown`.
+
+Then run inside Vim:
 
     :so ~/.vimrc
-    :BundleInstall
+    :PluginInstall
 
 If you use [Pathogen](https://github.com/tpope/vim-pathogen), do this:
 
@@ -69,14 +72,39 @@ The following work on normal and visual modes:
 
 ## Commands
 
-The following commands currently only work for atx style headers (`#`). Pull request are welcome to extend them to Setext style headers (`===`).
+- `:HeaderDecrease`:
+
+    Decrease level of all headers in buffer: `h2` to `h1`, `h3` to `h2`, etc.
+
+    If range is given, only operate in the range.
+
+    If an `h1` would be decreased, abort.
+
+    For simplicity of implementation, Setex headers are converted to Atx.
+
+- `:HeaderIncrease`: Analogous to `:HeaderDecrease`, but increase levels instead.
+
+- `:SetexToAtx`:
+
+    Convert all Setex style headers in buffer to Atx.
+
+    If a range is given, e.g. hit `:` from visual mode, only operate on the range.
+
+- `:TableFormat`: Format the table under the cursor [like this](http://www.cirosantilli.com/markdown-styleguide/#tables).
+
+    Requires [Tabular](https://github.com/godlygeek/tabular).
+
+    The input table *must* already have a separator line as the second line of the table.
+    That line only needs to contain the correct pipes `|`, nothing else is required.
 
 - `:Toc`: create a quickfix vertical window navigable table of contents with the headers.
 
     Hit `<Enter>` on a line to jump to the corresponding line of the markdown file.
 
 - `:Toch`: Same as `:Toc` but in an horizontal window.
+
 - `:Toct`: Same as `:Toc` but in a new tab.
+
 - `:Tocv`: Same as `:Toc` for symmetry with `:Toch` and `Tocv`.
 
 ## Credits

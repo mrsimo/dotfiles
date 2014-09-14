@@ -16,11 +16,6 @@ augroup endwise " {{{1
         \ let b:endwise_words = 'function,do,then' |
         \ let b:endwise_pattern = '^\s*\zs\%(\%(local\s\+\)\=function\)\>\%(.*\<end\>\)\@!\|\<\%(then\|do\)\ze\s*$' |
         \ let b:endwise_syngroups = 'luaFunction,luaStatement,luaCond'
-  autocmd FileType elixir
-        \ let b:endwise_addition = 'end' |
-        \ let b:endwise_words = 'case,cond,bc,lc,inlist,inbits,if,unless,try,receive,function,fn' |
-        \ let b:endwise_pattern = '^\s*\zs\%(case\|cond\|bc\|lc\|inlist\|inbits\|if\|unless\|try\|receive\|function\|fn\)\>\%(.*[^:]\<end\>\)\@!' |
-        \ let b:endwise_syngroups = 'elixirKeyword'
   autocmd FileType ruby
         \ let b:endwise_addition = 'end' |
         \ let b:endwise_words = 'module,class,def,if,unless,case,while,until,begin,do' |
@@ -54,7 +49,16 @@ augroup endwise " {{{1
         \ let b:endwise_addition = 'end' |
         \ let b:endwise_words = 'function,if,for' |
         \ let b:endwise_syngroups = 'matlabStatement,matlabFunction,matlabConditional,matlabRepeat'
+  autocmd FileType * call s:abbrev()
 augroup END " }}}1
+
+function! s:abbrev()
+  if exists('g:endwise_abbreviations')
+    for word in split(get(b:, 'endwise_words', ''), ',')
+      execute 'iabbrev <buffer><script>' word word.'<CR><SID>DiscretionaryEnd<Space><C-U><BS>'
+    endfor
+  endif
+endfunction
 
 " Maps {{{1
 

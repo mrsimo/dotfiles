@@ -32,10 +32,12 @@ function! SyntaxCheckers_python_pylint_GetLocList() dict
         \ '%-Z%p^%.%#,' .
         \ '%-G%.%#'
 
-    let loclist=SyntasticMake({
+    let env = syntastic#util#isRunningWindows() ? {} : { 'TERM': 'dumb' }
+
+    let loclist = SyntasticMake({
         \ 'makeprg': makeprg,
         \ 'errorformat': errorformat,
-        \ 'postprocess': ['sort'],
+        \ 'env': env,
         \ 'returns': range(32) })
 
     for e in loclist
@@ -54,6 +56,8 @@ function! SyntaxCheckers_python_pylint_GetLocList() dict
         let e['col'] += 1
         let e['vcol'] = 0
     endfor
+
+    call self.setWantSort(1)
 
     return loclist
 endfunction
