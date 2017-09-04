@@ -7,5 +7,7 @@
 --ignore-dir=plots
 --ignore-dir=doc
 --ignore-dir=ctags
---type-set=DUMB=.db,ctags,.sql
+--ignore-dir=tags
+--ignore-dir=test/fixtures/vcr_cassettes
+--type-set=DUMB=.db,ctags,.sql,tags
 --noDUMB
