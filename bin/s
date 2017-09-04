@@ -1,11 +1,7 @@
 #!/usr/bin/env ruby
 
-debugger = (ARGV[0] && ARGV[0].first == "d")
-
-if File.exists?(ENV["PWD"] + "/script/server")
-  system "script/server#{debugger ? ' --debugger' : ''}"
-elsif File.exists?(ENV["PWD"] + "/config.ru")
-  system "rails server#{debugger ? ' --debugger' : ''}"
+if File.exists?("config/unicorn.development.rb")
+  system "bundle exec unicorn -c config/unicorn.development.rb"
 else
-  puts "No inside a rails app"
+  system "bundle exec rails server"
 end

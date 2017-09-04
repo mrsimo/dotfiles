@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'socket'
+
+$stdout.sync = true
+
+s = UDPSocket.new
+s.bind('127.0.0.1', 8125)
+
+while payload = s.recvfrom(1024)
+  puts payload.first
+end
