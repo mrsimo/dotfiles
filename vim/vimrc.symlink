@@ -1,58 +1,65 @@
-" -------------------------
-" GENERAL
-" -------------------------
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-" Must be called first
-filetype off
-
-"This must be first, because it changes other options as a side effect.
-set nocompatible
-
-" Vundle
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " Mandatory
-Bundle 'gmarik/vundle'
+Plugin 'VundleVim/Vundle.vim'
 
-Bundle 'molokai'
+" Misc writing stuff
+Plugin 'Townk/vim-autoclose'
+Plugin 'kien/rainbow_parentheses.vim'
+" Plugin 'scrooloose/syntastic'
+" Plugin 'w0rp/ale'
+Plugin 'godlygeek/tabular'
+Plugin 'tpope/vim-endwise'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-surround'
+" Plugin 'tpope/vim-dispatch'
+" Plugin 'janko-m/vim-test'
 
-" Bundle 'esukram/autocomplpop.vim'
+Plugin 'tpope/vim-commentary'
 
-Bundle 'Townk/vim-autoclose'
-Bundle 'bufexplorer.zip'
+" Git
+Plugin 'tpope/vim-fugitive'
+" Plugin 'airblade/vim-gitgutter'
 
-Bundle 'kien/ctrlp.vim'
-Bundle 'kien/rainbow_parentheses.vim'
-Bundle 'scrooloose/syntastic'
-Bundle 'godlygeek/tabular'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tomtom/tcomment_vim'
+" Languages support
+Plugin 'tpope/vim-rails'
+Plugin 'sheerun/vim-polyglot'
+Plugin 'rust-lang/rust.vim'
 
-Bundle 'tpope/vim-fugitive'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'tpope/vim-rails'
+" Status bar
+" Plugin 'bling/vim-airline'
 
-Bundle 'tpope/vim-haml'
-Bundle 'kchmck/vim-coffee-script'
-Bundle 'pangloss/vim-javascript'
-Bundle 'plasticboy/vim-markdown'
+" Proper formatting
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'PreserveNoEOL'
+" Plugin 'ngmy/vim-rubocop'
 
-Bundle 'msanders/snipmate.vim'
+" Finding files or searching on them
+Plugin 'vim-scripts/The-NERD-tree'
+Plugin 'jlanzarotta/bufexplorer'
+Plugin 'kien/ctrlp.vim'
+Plugin 'rking/ag.vim'
 
-" Bundle 'Lokaltog/vim-powerline'
-Bundle 'bling/vim-airline'
+" Color scheme (need to change at end of file too)
+" Plugin 'molokai'
+Plugin 'flazz/vim-colorschemes'
+Plugin 'vim-misc'
+Plugin 'xolox/vim-colorscheme-switcher'
+"Plugin 'farseer90718/flattr.vim'
 
-Bundle 'majutsushi/tagbar'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-Bundle 'The-NERD-tree'
-Bundle 'mileszs/ack.vim'
-
+call vundle#end()
 filetype plugin indent on
 
-call pathogen#runtime_append_all_bundles()
+syntax on
+
+"limit the syntax highlighting to first 250 lines, or long lines
+"will make vim slow
+set synmaxcol=250
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
@@ -61,7 +68,7 @@ set backspace=indent,eol,start
 set history=1000
 
 "color theme for terminal vim
-colors peachpuff
+colors peacock
 
 " -------------------------
 " /GENERAL
@@ -94,11 +101,9 @@ function! StatuslineCurrentHighlight()
     endif
 endfunction
 
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_quiet_warnings=1
-
-let g:ackprg = 'ag --nogroup --nocolor --column'
+" let g:syntastic_enable_signs   = 1
+" let g:syntastic_auto_loc_list  = 1
+" let g:syntastic_quiet_messages = {'level': 'warnings'}
 
 set statusline=%f       "tail of the filename
 
@@ -113,7 +118,7 @@ set statusline+=%{(&fenc!='utf-8'&&&fenc!='')?'['.&fenc.']':''}
 set statusline+=%*
 
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
 set statusline+=%h      "help file flag
@@ -186,10 +191,10 @@ map <s-D-Right> <C-w><Right>
 map <s-D-Up> <C-w><Up>
 map <s-D-Down> <C-w><Down>
 
-map <leader>a <C-w><Left>
-map <leader>d <C-w><Right>
-map <leader>w <C-w><Up>
-map <leader>s <C-w><Down>
+nnoremap <leader>a <C-w><Left>
+nnoremap <leader>d <C-w><Right>
+nnoremap <leader>w <C-w><Up>
+nnoremap <leader>s <C-w><Down>
 
 map <D-H> <C-w><Right><C-W>H<CR>
 map <D-V> <C-w><Down><C-W>K<CR>
@@ -222,23 +227,6 @@ map <D-9> :tabn 9<CR>
 map <leader>q :q<CR>
 imap <leader>q :q<CR>
 
-" Leader shortcuts for Rails commands
-" Props to @malditogeek
-" map <Leader>m :Rmodel
-" map <Leader>c :Rcontroller
-" map <Leader>v :Rview
-" map <Leader>u :Runittest
-" map <Leader>f :Rfunctionaltest
-" map <Leader>tm :RTmodel
-" map <Leader>tc :RTcontroller
-" map <Leader>tv :RTview
-" map <Leader>tu :RTunittest
-" map <Leader>tf :RTfunctionaltest
-" map <Leader>sm :RSmodel
-" map <Leader>sc :RScontroller
-" map <Leader>sv :RSview
-" map <Leader>su :RSunittest
-" map <Leader>sf :RSfunctionaltest
 
 " -------------------------
 " MAPPINGS
@@ -275,18 +263,14 @@ set sidescrolloff=7
 set sidescroll=1
 
 "load ftplugins and indent files
-filetype plugin on
-filetype indent on
-
-"turn on syntax highlighting
-syntax on
+filetype plugin indent on
 
 set ofu=syntaxcomplete#Complete
 let g:acp_behaviorKeywordLength = 4
 
 "some stuff to get the mouse going in term
 set mouse=a
-set ttymouse=xterm2
+" set ttymouse=xterm2
 
 "tell the term has 256 colors
 set t_Co=256
@@ -315,30 +299,26 @@ nnoremap <c-t> :NERDTreeToggle<CR>
 nnoremap <leader>b :BufExplorer<cr>
 
 "map to fuzzy finder text mate stylez
-set wildignore+=gems/**,coverage,tmp,*/.git/*,*/.hg/*,*/.svn/*,.DS_Store
+" let wildignore+=gems/**,coverage,tmp,*/.git/*,*/.hg/*,*/.svn/*,.DS_Store,test/fixtures/vcr_cassettes/**
 nnoremap <leader>r :ClearCtrlPCache<CR>:CtrlP<cr>
 nnoremap <leader>f :CtrlP<cr>
 
 let g:ctrlp_working_path_mode = 0
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 
-
-"reload vim config
-nnoremap <D-e> :so $MYVIMRC<cr>
-nnoremap <D-E> :so $MYGVIMRC<cr>
+set wildignore+=gems/**,coverage,tmp,*/.git/*,*/.hg/*,*/.svn/*,.DS_Store,test/fixtures/vcr_cassettes/,test/fixtures/private,private
 
 "comment lines as with textmate
-map <leader>g :TComment<cr>
-imap <leader>g :TComment<cr>
-vmap <leader>g :TComment<cr>
+" map <leader>g :TComment<cr>
+" imap <leader>g :TComment<cr>
+" vmap <leader>g :TComment<cr>
+map <leader>g gcc
 
-"display yankring
-map <leader>p :YRShow<cr>
-imap <leader>p :YRShow<cr>
-vmap <leader>p :YRShow<cr>
+"prevent Autoclose from being annoying
+nmap <unique> <Leader>c <Plug>ToggleAutoCloseMappings
 
 "go back to last file
 map <leader><leader> <C-^>
-
 
 "make Y consistent with C and D
 nnoremap Y y$
@@ -352,16 +332,7 @@ map <C-K> :m -2 <CR>
 
 " move faster around up and down
 nnoremap <space> :+15<cr>
-nnoremap <C-Down> :+15<cr>
-inoremap <C-Down> :+15<cr>
 nnoremap <s-space> :-15<cr>
-nnoremap <C-Up> :-15<cr>
-inoremap <C-Up> :-15<cr>
-
-" Experiment so select with shift-arrows
-nnoremap <s-Right> v<Right>
-inoremap <s-Right> <Esc><Right>v<Right>
-vnoremap <s-Right> <Right>
 
 "Duplicate a selection
 vmap D y'>p
@@ -450,3 +421,5 @@ autocmd BufNewFile,BufRead *.thor setf ruby
 "   source ~/.vimrclocal
 " endif
 
+" show git diff in the editor on `git commit`
+autocmd FileType gitcommit DiffGitCached | wincmd p | wincmd H

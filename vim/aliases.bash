@@ -1,1 +1,1 @@
-alias ctags_here='ctags -f ctags --exclude=log --exclude=tmp -R .'
+alias ctags_here='ctags -f ctags -R --exclude=log .'

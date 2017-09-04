@@ -26,13 +26,24 @@ function! RailsDetect(...) abort
     return 1
   endif
   let fn = fnamemodify(a:0 ? a:1 : expand('%'), ':p')
+  if fn =~# ':[\/]\{2\}'
+    return 0
+  endif
   if !isdirectory(fn)
     let fn = fnamemodify(fn, ':h')
   endif
   let file = findfile('config/environment.rb', escape(fn, ', ').';')
-  if !empty(file)
+  if !empty(file) && isdirectory(fnamemodify(file, ':p:h:h') . '/app')
     let b:rails_root = fnamemodify(file, ':p:h:h')
     return 1
+  endif
+endfunction
+
+function! s:log_detect() abort
+  let path = matchstr(get(w:, 'quickfix_title'), '\<cgetfile \zs.*\ze[\\/]log[\\/].*.log$')
+  if !empty(path) && filereadable(path . '/config/environment.rb') && isdirectory(path . '/app')
+    let b:rails_root = path
+    setlocal filetype=railslog
   endif
 endfunction
 
@@ -46,10 +57,21 @@ if !exists('g:loaded_projectionist')
   runtime! plugin/projectionist.vim
 endif
 
+function! s:doau_user(arg) abort
+  if exists('#User#'.a:arg)
+    try
+      let [modelines, &modelines] = [&modelines, 0]
+      exe 'doautocmd User' a:arg
+    finally
+      let &modelines = modelines
+    endtry
+  endif
+endfunction
+
 augroup railsPluginDetect
   autocmd!
-  autocmd BufEnter * if exists("b:rails_root")|silent doau User BufEnterRails|endif
-  autocmd BufLeave * if exists("b:rails_root")|silent doau User BufLeaveRails|endif
+  autocmd BufEnter * if exists("b:rails_root")|call s:doau_user('BufEnterRails')|endif
+  autocmd BufLeave * if exists("b:rails_root")|call s:doau_user('BufLeaveRails')|endif
 
   autocmd BufNewFile,BufReadPost *
         \ if RailsDetect(expand("<afile>:p")) && empty(&filetype) |
@@ -58,32 +80,36 @@ augroup railsPluginDetect
   autocmd VimEnter *
         \ if empty(expand("<amatch>")) && RailsDetect(getcwd()) |
         \   call rails#buffer_setup() |
-        \   silent doau User BufEnterRails |
+        \   call s:doau_user('BufEnterRails') |
         \ endif
   autocmd FileType netrw
         \ if RailsDetect() |
-        \   silent doau User BufEnterRails |
+        \   call s:doau_user('BufEnterRails') |
         \ endif
   autocmd FileType * if RailsDetect() | call rails#buffer_setup() | endif
 
-  autocmd BufNewFile,BufReadPost *.yml.example set filetype=yaml
+  autocmd BufNewFile,BufReadPost *.yml,*.yml.example
+        \ if &filetype !=# 'eruby.yaml' && RailsDetect() |
+        \   set filetype=eruby.yaml |
+        \ endif
   autocmd BufNewFile,BufReadPost *.rjs,*.rxml,*.builder,*.jbuilder,*.ruby
         \ if &filetype !=# 'ruby' | set filetype=ruby | endif
   autocmd BufReadPost *.log if RailsDetect() | set filetype=railslog | endif
 
+  autocmd FileType qf call s:log_detect()
   autocmd FileType railslog call rails#log_setup()
   autocmd Syntax railslog call rails#log_syntax()
-  autocmd Syntax ruby,eruby,yaml,haml,javascript,coffee,sass,scss
+  autocmd Syntax ruby,eruby,haml,javascript,coffee,css,sass,scss
         \ if RailsDetect() | call rails#buffer_syntax() | endif
 
   autocmd User ProjectionistDetect
         \ if RailsDetect(get(g:, 'projectionist_file', '')) |
         \   call projectionist#append(b:rails_root,
-        \     {'*': {'make': split(rails#app().rake_command('static'))}}) |
+        \     {'*': {"start": rails#app().static_rails_command('server')}}) |
         \ endif
 augroup END
 
-command! -bar -bang -nargs=* -complete=dir Rails execute rails#new_app_command(<bang>0,<f-args>)
+command! -bang -bar -nargs=* -count -complete=customlist,rails#complete_rails Rails execute rails#command(<bang>0, '<mods>', !<count> && <line1> ? -1 : <count>, <q-args>)
 
 " }}}1
 " abolish.vim support {{{1
