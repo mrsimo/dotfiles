@@ -29,14 +29,13 @@ shopt -s no_empty_cmd_completion >/dev/null 2>&1
 # fuck that you have new mail shit
 unset MAILCHECK
 
-# disable core dumps
-ulimit -S -c 0
-
 # default umask
 umask 0022
 
 # to stop Finder writing .DS_Store files on network volumes
-defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+if [[ "$(uname)" == "Darwin" ]]; then
+  defaults write com.apple.desktopservices DSDontWriteNetworkStores true
+fi
 
 # ----------------------------------------------------------------------
 # ENVIRONMENT CONFIGURATION

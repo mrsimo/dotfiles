@@ -1,39 +1,25 @@
-#!/bin/bash
-#
-# Albert Llop <http://simo.ws>
-#
-# Blatantly "inspired" (copied) from:
-#
-# http://github.com/ryanb/dotfiles
-# http://github.com/rtomayko/dotfiles
-# http://github.com/holman/dotfiles
-#
-
-# ----------------------------------------------------------------------
-# INCLUDES
-# ----------------------------------------------------------------------
-
 export BASHDIR=~/Dropbox/dotfiles
 
-source ~/.bash/basic
-source ~/.bash/completions
-source ~/.bash/paths
-source ~/.bash/prompt
+source ~/.bash/basic.sh
+source ~/.bash/completions.sh
+source ~/.bash/paths.sh
+source ~/.bash/prompt.sh
 
 for file in `ls $BASHDIR/**/*.bash` ; do
   . $file
 done
 
-if [ -f ~/.localrc ]; then
+if [[ -f ~/.localrc ]]; then
   . ~/.localrc
 fi
 
-# Hopefully compatible with rvm or rbenv
-if which rvm > /dev/null; then PATH=$PATH:$HOME/.rvm/bin; fi
-if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+# rbenv
+if [[ -d "$HOME/.rbenv" ]]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
+  eval "$(rbenv init -)";
+fi
 
-[ -s "/Users/albert.llop/.scm_breeze/scm_breeze.sh" ] && source "/Users/albert.llop/.scm_breeze/scm_breeze.sh"
-[ -s "/Users/mrsimo/.scm_breeze/scm_breeze.sh" ] && source "/Users/mrsimo/.scm_breeze/scm_breeze.sh"
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
+# scm_breeze
+if [[ -s ~/.scm_breeze/scm_breeze.sh ]]; then
+  source ~/.scm_breeze/scm_breeze.sh
+fi
