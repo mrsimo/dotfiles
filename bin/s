@@ -1,7 +1,0 @@
-#!/usr/bin/env ruby
-
-if File.exists?("config/unicorn.development.rb")
-  system "bundle exec unicorn -c config/unicorn.development.rb"
-else
-  system "bundle exec rails server"
-end
