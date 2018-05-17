@@ -1,0 +1,112 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "files.autoSave": "onFocusChange",
+    "search.useIgnoreFiles": true,
+    "search.exclude": {
+        "test/vcr_cassettes": true,
+    },
+    "vim.leader": ",",
+    "vim.easymotion": false,
+    "vim.statusBarColorControl": false,
+    "vim.visualstar": true,
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before": [ ">" ],
+            "after": [ ">", ">" ]
+        },
+        {
+            "before": [ "<" ],
+            "after": [ "<", "<"]
+        },
+        {
+            "before": [ "H" ],
+            "after": [ "^" ]
+        },
+        {
+            "before": [ "L" ],
+            "after": [ "$" ]
+        },
+        {
+            "before": [ "Y" ],
+            "after": ["y", "$"]
+        },
+        {
+            "before": [ "<leader>", "g" ],
+            "after": ["g", "c", "c"]
+        },
+        {
+            "before": [ "<leader>", "d" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.focusNextGroup"} ]
+        },
+        {
+            "before": [ "<leader>", "a" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.focusPreviousGroup"} ]
+        },
+        {
+            "before": [ "<leader>", "f" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.quickOpen"} ]
+        },
+        {
+            "before": [ "<leader>", "s" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.openNextRecentlyUsedEditorInGroup"} ]
+        },
+        {
+            "before": [ "<leader>", "w" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.openPreviousRecentlyUsedEditorInGroup"} ]
+        },
+        {
+            "before": [ "<leader>", "<leader>" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.openPreviousEditorFromHistory"} ]
+        },
+        {
+            "before": [ "<leader>", "q" ],
+            "after": [],
+            "commands": [ {"command": "workbench.action.closeActiveEditor"} ]
+        }
+
+    ],
+    "workbench.colorTheme": "Monokai",
+    "window.zoomLevel": 0,
+    "editor.fontSize": 14,
+    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "terminal.integrated.fontSize": 15,
+    "terminal.integrated.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "terminal.integrated.cursorBlinking": true,
+    "extensions.ignoreRecommendations": true,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#005f5f",
+        "statusBar.noFolderBackground": "#005f5f",
+        "statusBar.debuggingBackground": "#005f5f"
+    },
+    "workbench.sideBar.location": "left",
+    "editor.minimap.enabled": false,
+    "editor.renderWhitespace": "none",
+    "explorer.confirmDragAndDrop": false,
+    "explorer.confirmDelete": false,
+    "gitlens.advanced.messages": {
+        "suppressCommitHasNoPreviousCommitWarning": false,
+        "suppressCommitNotFoundWarning": false,
+        "suppressFileNotUnderSourceControlWarning": false,
+        "suppressGitVersionWarning": false,
+        "suppressLineUncommittedWarning": false,
+        "suppressNoRepositoryWarning": false,
+        "suppressUpdateNotice": false,
+        "suppressWelcomeNotice": true
+    },
+    "files.trimTrailingWhitespace": true,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "[plaintext]": {
+
+},
+"window.menuBarVisibility": "default"
+}

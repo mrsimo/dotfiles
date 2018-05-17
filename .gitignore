@@ -10,3 +10,4 @@ work-scripts
 .gitmodules
 vim/vim.symlink/bundle/rsync_sandbox
 wrk/
+vscode/vscode.symlink
