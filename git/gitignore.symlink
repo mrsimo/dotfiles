@@ -10,3 +10,6 @@
 Guardfile
 .minitest-perf.db
 ctags
+tags
+.rbenv-gemsets
+.byebug_history
