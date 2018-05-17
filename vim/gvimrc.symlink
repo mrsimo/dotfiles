@@ -14,18 +14,19 @@ winpos 0 0
 set anti " antialiasing
 set guioptions=gemc
 set ch=1
+set noballooneval
 
 " Autosave on focus lost
 au FocusLost * :wa
 
 if has("gui_macvim")
-  " Command-Shift-F for Ag
+  " Full screen mode
   au GUIEnter * set fullscreen
   macmenu Window.Toggle\ Full\ Screen\ Mode key=<D-K>
+
+  " Command-Shift-F for Ag
   map <D-F> :Ag<space>
-  " Full screen mode
 endif
 
 " autocmd VimEnter * wincmd p
 autocmd VimEnter * NERDTree
-

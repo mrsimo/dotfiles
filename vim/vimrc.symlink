@@ -2,73 +2,81 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+
+set rtp+=/usr/local/opt/fzf
+" start plugged
+call plug#begin('~/.vim/plugged')
 
 " Mandatory
-Plugin 'VundleVim/Vundle.vim'
+Plug 'VundleVim/Vundle.vim'
 
 " Misc writing stuff
-Plugin 'Townk/vim-autoclose'
-Plugin 'kien/rainbow_parentheses.vim'
-" Plugin 'scrooloose/syntastic'
-" Plugin 'w0rp/ale'
-Plugin 'godlygeek/tabular'
-Plugin 'tpope/vim-endwise'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-" Plugin 'tpope/vim-dispatch'
-" Plugin 'janko-m/vim-test'
+Plug 'Townk/vim-autoclose'
+Plug 'kien/rainbow_parentheses.vim'
+" Plug 'scrooloose/syntastic'
+" Plug 'w0rp/ale'
+Plug 'godlygeek/tabular'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+" Plug 'tpope/vim-dispatch'
+" Plug 'janko-m/vim-test'
 
-Plugin 'tpope/vim-commentary'
+Plug 'tpope/vim-commentary'
+
+" Plug 'Shougo/neocomplete.vim'
 
 " Git
-Plugin 'tpope/vim-fugitive'
-" Plugin 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+" Plug 'airblade/vim-gitgutter'
 
 " Languages support
-Plugin 'tpope/vim-rails'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'rust-lang/rust.vim'
+Plug 'tpope/vim-rails'
+Plug 'sheerun/vim-polyglot'
+Plug 'rust-lang/rust.vim'
 
 " Status bar
-" Plugin 'bling/vim-airline'
+" Plug 'bling/vim-airline'
 
 " Proper formatting
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'PreserveNoEOL'
-" Plugin 'ngmy/vim-rubocop'
+Plug 'editorconfig/editorconfig-vim'
+" Plug 'PreserveNoEOL'
+" Plug 'ngmy/vim-rubocop'
 
 " Finding files or searching on them
-Plugin 'vim-scripts/The-NERD-tree'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'kien/ctrlp.vim'
-Plugin 'rking/ag.vim'
+Plug 'vim-scripts/The-NERD-tree'
+Plug 'jlanzarotta/bufexplorer'
+" Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'rking/ag.vim'
 
 " Color scheme (need to change at end of file too)
-" Plugin 'molokai'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'vim-misc'
-Plugin 'xolox/vim-colorscheme-switcher'
-"Plugin 'farseer90718/flattr.vim'
+Plug 'tomasr/molokai'
+" Plug 'flazz/vim-colorschemes'
+" Plug 'vim-misc'
+" Plug 'xolox/vim-colorscheme-switcher'
+"Plug 'farseer90718/flattr.vim'
 
-call vundle#end()
+call plug#end()
+"call vundle#end()
 filetype plugin indent on
 
 syntax on
 
 "limit the syntax highlighting to first 250 lines, or long lines
 "will make vim slow
-set synmaxcol=250
+set synmaxcol=150
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
 "store lots of :cmdline history
-set history=1000
+set history=500
 
 "color theme for terminal vim
-colors peacock
+colors molokai
 
 " -------------------------
 " /GENERAL
@@ -139,7 +147,7 @@ set statusline+=%{&paste?'[paste]':''}
 set statusline+=%*
 
 set statusline+=%=      "left/right separator
-set statusline+=%{StatuslineCurrentHighlight()} "current highlight
+"set statusline+=%{StatuslineCurrentHighlight()} "current highlight
 set statusline+=%c,     "cursor column
 set statusline+=%l/%L   "cursor line/total lines
 set statusline+=\ %P    "percent through file
@@ -152,7 +160,18 @@ set statusline+=\ %P    "percent through file
 " -------------------------
 "Visual
 set ruler                  " show the cursor position all the time
-set nolazyredraw           " turn off lazy redraw
+
+
+" Experiments for performance
+" set nolazyredraw           " turn off lazy redraw
+set lazyredraw           " try for performance
+set re=1 " https://stackoverflow.com/questions/16902317/vim-slow-with-ruby-syntax-highlighting/16920294#16920294
+
+augroup ft_rb
+  au!
+  au FileType ruby setlocal re=1 foldmethod=manual
+augroup END
+
 set wildmenu               " turn on wild menu
 set wildmode=list:longest,full
 set ch=2                   " command line height
@@ -185,11 +204,6 @@ set autoread              " reload files (no local changes only)
 " -------------------------
 " remap <LEADER> to ',' (instead of '\')
 let mapleader = ","
-
-map <s-D-Left> <C-w><Left>
-map <s-D-Right> <C-w><Right>
-map <s-D-Up> <C-w><Up>
-map <s-D-Down> <C-w><Down>
 
 nnoremap <leader>a <C-w><Left>
 nnoremap <leader>d <C-w><Right>
@@ -300,8 +314,10 @@ nnoremap <leader>b :BufExplorer<cr>
 
 "map to fuzzy finder text mate stylez
 " let wildignore+=gems/**,coverage,tmp,*/.git/*,*/.hg/*,*/.svn/*,.DS_Store,test/fixtures/vcr_cassettes/**
-nnoremap <leader>r :ClearCtrlPCache<CR>:CtrlP<cr>
-nnoremap <leader>f :CtrlP<cr>
+" nnoremap <leader>r :ClearCtrlPCache<CR>:CtrlP<cr>
+" nnoremap <leader>f :CtrlP<cr>
+" nnoremap <leader>r :ClearCtrlPCache<CR>:CtrlP<cr>
+nnoremap <leader>f :Files<cr>
 
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
@@ -423,3 +439,5 @@ autocmd BufNewFile,BufRead *.thor setf ruby
 
 " show git diff in the editor on `git commit`
 autocmd FileType gitcommit DiffGitCached | wincmd p | wincmd H
+
+let g:neocomplete#enable_at_startup = 1
