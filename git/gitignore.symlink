@@ -13,3 +13,5 @@ ctags
 tags
 .rbenv-gemsets
 .byebug_history
+Dockerfile-local
+local-docker-entrypoint.sh
