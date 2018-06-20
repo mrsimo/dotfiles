@@ -1,0 +1,3 @@
+# ansible vault files in harvesthq/ansible-main
+vault*.yml diff=ansible-vault merge=ansible-vault
+
