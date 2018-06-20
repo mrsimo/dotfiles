@@ -3,6 +3,7 @@
 [keybindings]
   close_term = <Alt>W
   new_tab = <Alt>T
+  reset_clear = <Alt>k
   split_horiz = <Alt>D
   split_vert = <Alt>C
   switch_to_tab_1 = <Alt>1
