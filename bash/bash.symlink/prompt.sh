@@ -40,7 +40,6 @@ export LSCOLORS="exfxcxdxbxegedabagacad"
 
 # /Pretty methods
 
-
 # Prompt
 export PS1="${PURPLE}\$(ruby_prompt)${BGREEN}\$(git_prompt_info)${BBLUE}[${NORMAL}\w${BBLUE}] ${BBLUE}$ ${NORMAL}"
 
@@ -62,16 +61,12 @@ if [[ -n "$INTERACTIVE" ]]; then
     _os_version=$(defaults read loginwindow SystemVersionStampAsString)
       _load_avg=$(w | head -n1 | ruby -ne 'puts $_[/(\d+\.\d+ \d+\.\d+ \d+\.\d+)+$/]')
       _local_ip=$(ifconfig | grep 'inet 192' | head -n1 | cut -d' ' -f2)
-
-      # $(df -Hl | grep "/$" | cut -d " " -f15) of $(df -Hl | grep "/$" | cut -d " " -f4)
   else
                  _cpu_info=$(lscpu | grep "Model name" | cut -d ":" -f 2 | xargs)
                _os_version=$(lsb_release -ds)
                  _load_avg=$(cat /proc/loadavg | cut -d" " -f 1,2,3)
                  _local_ip=$(hostname -I | cut -d" " -f 1)
 
-        _local_drive_avail=$(df -h | grep "/$" | awk '{print $4}')
-        _local_drive_total=$(df -h | grep "/$" | awk '{print $2}')
   fi
 
     echo "
@@ -80,8 +75,6 @@ if [[ -n "$INTERACTIVE" ]]; then
   "                                                            >> /tmp/prompt
     echo "            OS: $_os_version" >> /tmp/prompt
     echo "   System load: $_load_avg"   >> /tmp/prompt
-    echo "            HD: $_local_drive_avail / $_local_drive_total" >> /tmp/prompt
-    # echo "  /Volumes/wrk: $(df -Hl | grep "/Volumes/wrk" | cut -d " " -f15) of $(df -Hl | grep "/Volumes/wrk" | cut -d " " -f4)" >> /tmp/prompt
     echo "       Network: $(cat /tmp/myip) / $_local_ip
     "                           >> /tmp/prompt
 
