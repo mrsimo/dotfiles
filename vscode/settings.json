@@ -2,23 +2,50 @@
 {
     "editor.tabSize": 2,
     "editor.insertSpaces": true,
+
     "files.autoSave": "onFocusChange",
+
     "search.useIgnoreFiles": true,
     "search.exclude": {
         "test/vcr_cassettes": true,
     },
+
     "vim.leader": ",",
     "vim.easymotion": false,
     "vim.statusBarColorControl": false,
     "vim.visualstar": true,
-    "vim.otherModesKeyBindingsNonRecursive": [
+
+    "vim.visualModeKeyBindingsNonRecursive": [
         {
             "before": [ ">" ],
-            "after": [ ">", ">" ]
+            "commands": [ {"command": "editor.action.indentLines" } ]
         },
         {
             "before": [ "<" ],
-            "after": [ "<", "<"]
+            "commands": [ {"command": "editor.action.outdentLines" } ]
+        },
+        {
+            "before": [ "<leader>", "g" ],
+            "after": ["g", "c", "c"]
+        },
+        {
+            "before": [ "H" ],
+            "after": [ "^" ]
+        },
+        {
+            "before": [ "L" ],
+            "after": [ "$" ]
+        },
+    ],
+
+    "vim.normalModeKeyBindingsNonRecursive": [
+        {
+            "before": [ ">" ],
+            "commands": [ {"command": "editor.action.indentLines" } ]
+        },
+        {
+            "before": [ "<" ],
+            "commands": [ {"command": "editor.action.outdentLines" } ]
         },
         {
             "before": [ "H" ],
@@ -35,6 +62,10 @@
         {
             "before": [ "<leader>", "g" ],
             "after": ["g", "c", "c"]
+        },
+        {
+            "before":["<C-n>"],
+            "commands": [ {"command": ":nohl", "args": []} ]
         },
         {
             "before": [ "<leader>", "d" ],
@@ -73,13 +104,17 @@
         }
 
     ],
+
     "workbench.colorTheme": "Monokai",
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
     "editor.fontSize": 14,
-    "editor.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontFamily": "'Office Code Pro D', Fira Code, Menlo, Monaco, 'Courier New', monospace",
+
     "terminal.integrated.fontSize": 15,
     "terminal.integrated.fontFamily": "Fira Code, Menlo, Monaco, 'Courier New', monospace",
     "terminal.integrated.cursorBlinking": true,
+    "terraform.path": "/home/albert/Dropbox/dotfiles/bin/terraform",
+
     "extensions.ignoreRecommendations": true,
     "workbench.colorCustomizations": {
         "statusBar.background": "#005f5f",
@@ -87,26 +122,26 @@
         "statusBar.debuggingBackground": "#005f5f"
     },
     "workbench.sideBar.location": "left",
+
     "editor.minimap.enabled": false,
     "editor.renderWhitespace": "none",
+
     "explorer.confirmDragAndDrop": false,
     "explorer.confirmDelete": false,
-    "gitlens.advanced.messages": {
-        "suppressCommitHasNoPreviousCommitWarning": false,
-        "suppressCommitNotFoundWarning": false,
-        "suppressFileNotUnderSourceControlWarning": false,
-        "suppressGitVersionWarning": false,
-        "suppressLineUncommittedWarning": false,
-        "suppressNoRepositoryWarning": false,
-        "suppressUpdateNotice": false,
-        "suppressWelcomeNotice": true
-    },
+
     "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
     "files.trimFinalNewlines": true,
-    "workbench.iconTheme": "material-icon-theme",
-    "[plaintext]": {
 
-},
-"window.menuBarVisibility": "default"
+    "workbench.iconTheme": "material-icon-theme",
+    "window.menuBarVisibility": "default",
+    "shellcheck.disableVersionCheck": true,
+    "breadcrumbs.enabled": true,
+    "editor.fontLigatures": true,
+    "workbench.editor.highlightModifiedTabs": true,
+    "editor.cursorBlinking": "smooth",
+    "window.titleBarStyle": "custom",
+    "[erb]": {
+
+  }
 }
