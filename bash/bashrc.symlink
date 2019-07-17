@@ -23,3 +23,5 @@ fi
 if [[ -s ~/.scm_breeze/scm_breeze.sh ]]; then
   source ~/.scm_breeze/scm_breeze.sh
 fi
+
+export PATH="$HOME/.krew/bin:$PATH"
